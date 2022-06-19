@@ -1,12 +1,17 @@
-const http = require('http');
-require('dotenv').config();
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const dotenv = require('dotenv').config();
+const userRouter = require("./Routes/user");
 
-const requestListener = function (req, res) {
-  res.writeHead(200);
-  res.end('Hello, Tahar!');
-}
+mongoose
+  .connect(process.env.URL)
+  .then(() => console.log("MongoDB connected successfuly"))
+  .catch((err) => console.log("Error connecting to mongoDB: ", err));
 
-const server = http.createServer(requestListener);
-server.listen(process.env.PORT || 8080, () => {
-  console.log("Connect to the API")
+app.use(express.json())
+app.use("/api/users", userRouter);
+
+app.listen(process.env.PORT || 5000, () => {
+  console.log("Connected to the API")
 });
