@@ -19,6 +19,7 @@ mongoose
 app.use(cors())
 app.use(express.json())
 
+app.use("/", (req,res)=>{res.send("Hello DopeStickers!!!!")})
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/product", productRouter);
@@ -27,5 +28,5 @@ app.use("/api/order", orderRouter);
 app.use("/api/stripe", stripeRouter);
 
 app.listen(process.env.PORT || 5000, () => {
-  console.log("Connected to the API")
+  console.log("Connected to the API on port: ", 5000)
 });
